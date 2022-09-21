@@ -34,9 +34,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # users
+    # user
     "users.apps.UsersConfig",
     "pages.apps.PagesConfig",
+    "attendance.apps.AttendanceConfig",
 
     # custom
     "crispy_forms",

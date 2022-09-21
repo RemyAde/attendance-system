@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+
+
+{% block content %} 
+     
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Summary</th>
+            <th scope="col">Status</th>
+            <th scope="col">Subject</th>
+          </tr>
+        </thead>
+        {% for attendance in object_list %}
+        <tbody>
+          <tr>
+            <th scope="row">{{ attendance.id }}</th>
+            <td>{{ attendance.summary|truncatechars:30 }}</td>
+            <td>{{ attendance.present|yesno:"Present,Absent" }}</td>
+            <td>{{ attendance.student.subject }}</td>  
+            <!-- <td>{{ request.user.last_name }}</td>   -->
+          </tr>
+        </tbody>
+        {% endfor %}
+      </table>
+       
+{% endblock content %}

@@ -4,13 +4,13 @@
 
 
 {% block content %} 
-{% if user.is_authenticated %} 
-    Hi {{ user.username }}
-    <p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %} 
-    <p>You are not logged in</p>
-    <a href="{% url 'login' %}">Log In</a> | 
-    <a href="{% url 'signup' %}">Sign Up</a>
-{% endif %} 
+<div class="jumbotron">
+    <h1 class="display-4">Codrum Tech. Attendance System</h1>
+    <p class="lead">CTAS is a website that processes students attendance</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">
+        Mark your attendance</a>
+    </p>
+</div>
 {% endblock content %} 
 
