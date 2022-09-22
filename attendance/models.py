@@ -8,10 +8,10 @@ from users.models import CustomUser
 class Attendance(models.Model):
     BOOL_CHOICES = ((True, 'Present'), (False, 'Absent'))
 
-    summary = models.CharField(max_length=255, blank=True)
-    present = models.BooleanField(choices=BOOL_CHOICES, null=True, default=False)
+    summary = models.TextField(blank=True)
+    present = models.BooleanField(choices=BOOL_CHOICES, null=True, default=False, verbose_name="status")
+    subject = models.CharField(max_length=140, default='null')
     created = models.DateTimeField(auto_now_add=True)
-    date_completed = models.DateTimeField(null=True, blank=True)
     student = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
@@ -20,7 +20,8 @@ class Attendance(models.Model):
 
 
     def __str__(self):
-        return self.student.username
+        # return self.student.username
+        return f"{self.student.first_name} {self.student.last_name}"
 
 
     def get_absolute_url(self):

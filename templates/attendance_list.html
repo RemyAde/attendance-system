@@ -2,23 +2,32 @@
 
 
 {% block content %} 
+    <h1>Attendance History</h1>
      
     <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">id</th>
+            <th scope="col">Date</th>
+            {% if user.is_superuser %}
+            <th scope="col">Student</th>
+            {% endif %}
             <th scope="col">Summary</th>
             <th scope="col">Status</th>
             <th scope="col">Subject</th>
+            <th scope="col">Amend</th>
           </tr>
         </thead>
         {% for attendance in object_list %}
         <tbody>
           <tr>
-            <th scope="row">{{ attendance.id }}</th>
+            <th scope="row">{{ attendance.created|date:"N d, Y" }}</th>
+            {% if user.is_superuser %} 
+            <td>{{ attendance.student.first_name }} {{ attendance.student.last_name }} </td>
+            {% endif %}
             <td>{{ attendance.summary|truncatechars:30 }}</td>
             <td>{{ attendance.present|yesno:"Present,Absent" }}</td>
-            <td>{{ attendance.student.subject }}</td>  
+            <td>{{ attendance.subject }}</td>  
+            <td><a class="btn btn-outline-info ml-2" href="{% url 'attendance_detail' attendance.pk %}" role="button">View</a></td>
             <!-- <td>{{ request.user.last_name }}</td>   -->
           </tr>
         </tbody>

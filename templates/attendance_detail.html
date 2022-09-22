@@ -1,0 +1,24 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+
+<div class="container">
+    <h2>{{ object.subject }}</h2>
+        <b>Summary:</b> {{ object.summary }}
+        <br>
+        <b>Status: </b>{{ object.present|yesno:"Present,Absent" }}   
+        {% if user.is_superuser %} 
+        <br>
+        <b>Student: </b>{{ object.student.first_name }} {{ object.student.last_name }}
+        {% endif %}
+        <br>
+        <br>
+{% if not user.is_superuser %}
+<p><a class="btn btn-primary" href="{% url 'attendance_edit' attendance.pk %}" role="button">Edit</a></p>
+<p>Back to <a href="{% url 'attendance_list' %}">My Attendance</a></p>
+{% else %}
+<p>Back to <a href="{% url 'attendance_list' %}">Attendance</a></p>
+{% endif %}
+</div>
+
+{% endblock content %}
