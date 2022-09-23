@@ -1,10 +1,11 @@
 from django.urls import path
 from .views import (
-    AttendanceListView,
+    # AttendanceListView,
     AttendanceDetailView,
     AttendanceUpdateView,
     AttendanceDeleteView,
-    AttendanceCreateView
+    AttendanceCreateView,
+    attendance_eligible
     )
 
 
@@ -13,5 +14,6 @@ urlpatterns = [
     path('<int:pk>/', AttendanceDetailView.as_view(), name='attendance_detail'),
     path('<int:pk>/delete', AttendanceDeleteView.as_view(), name='attendance_delete'),
     path('new/', AttendanceCreateView.as_view(), name='attendance_new'),
-    path('', AttendanceListView.as_view(), name='attendance_list'),
+    # path('', AttendanceListView.as_view(), name='attendance_list'),
+    path('', attendance_eligible, name='attendance_list'),
 ]

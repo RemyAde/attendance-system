@@ -1,6 +1,7 @@
 {% extends 'base.html' %} 
 
 
+
 {% block content %} 
     <h1>Attendance History</h1>
      
@@ -33,5 +34,9 @@
         </tbody>
         {% endfor %}
       </table>
-       
+      <br>
+      {% if not user.is_superuser %}
+      <h3>You have {{ percentage_present }}% attendance complete</h3>
+      {% endif %} 
+
 {% endblock content %}
