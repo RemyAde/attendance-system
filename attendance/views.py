@@ -7,6 +7,9 @@ from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
 
 from .models import Attendance
+from .forms import AttendanceForm, AttendanceUpdateForm
+
+import math
 
 
 # class AttendanceListView(LoginRequiredMixin, ListView):
@@ -41,7 +44,7 @@ class AttendanceCreateView(LoginRequiredMixin,CreateView):
      
     model = Attendance
     template_name = 'attendance_new.html'
-    fields = ('subject', 'summary', 'present',)
+    form_class = AttendanceForm
 
     def form_valid(self, form):
         form.instance.student = self.request.user
@@ -67,7 +70,7 @@ class AttendanceDetailView(LoginRequiredMixin, DetailView):
 
 class AttendanceUpdateView(LoginRequiredMixin, UpdateView):
     model = Attendance
-    fields = ('subject', 'summary',)
+    form_class = AttendanceUpdateForm
     template_name = 'attendance_edit.html'
 
 
@@ -93,15 +96,17 @@ class AttendanceDeleteView(LoginRequiredMixin, DeleteView):
 
 @login_required
 def attendance_eligible(request):
-    object_list = Attendance.objects.filter(student=request.user)
-    true_count = object_list.filter(present=True).count()
-    false_count = object_list.filter(present=False).count()
-    total_count = true_count + false_count
-    percentage_present  = (true_count/total_count) * 100
-
-    if request.user.is_superuser:
-        object_list = Attendance.objects.all()
-
-    context = {'object_list':object_list, 'percentage_present':percentage_present}
-
-    return render(request, 'attendance_list.html', context=context)
+    try:
+        object_list = Attendance.objects.filter(student=request.user)
+        true_count = object_list.filter(present=True).count()
+        false_count = object_list.filter(present=False).count()
+        total_count = true_count + false_count
+        percentage_present  = (true_count/total_count) * 100
+        percentage_present  = math.ceil(percentage_present)
+        if request.user.is_superuser:
+            object_list = Attendance.objects.all()
+        context = {'object_list':object_list, 'percentage_present':percentage_present}
+        return render(request, 'attendance_list.html', context=context)
+    
+    except ZeroDivisionError:
+        return render(request, 'attendance_list.html', {'error':'You have no attendance'})

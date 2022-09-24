@@ -4,10 +4,14 @@
 
 {% block content %} 
     <h1>Attendance History</h1>
+    {% if percentage_present %}
      
     <table class="table">
         <thead class="thead-dark">
           <tr>
+            {% if not user.is_superuser %}
+            <th scope="col">Id</th>
+            {% endif %}
             <th scope="col">Date</th>
             {% if user.is_superuser %}
             <th scope="col">Student</th>
@@ -21,8 +25,12 @@
         {% for attendance in object_list %}
         <tbody>
           <tr>
-            <th scope="row">{{ attendance.created|date:"N d, Y" }}</th>
+            {% if not user.is_superuser %}
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ attendance.created|date:"N d, Y" }}</th>
+            {% endif %}
             {% if user.is_superuser %} 
+            <th scope="row">{{ attendance.created|date:"N d, Y" }}</th>
             <td>{{ attendance.student.first_name }} {{ attendance.student.last_name }} </td>
             {% endif %}
             <td>{{ attendance.summary|truncatechars:30 }}</td>
@@ -38,5 +46,9 @@
       {% if not user.is_superuser %}
       <h3>You have {{ percentage_present }}% attendance complete</h3>
       {% endif %} 
+
+      {% else %}
+        <p><h3>{{ error }}</h3></p>
+      {% endif %}
 
 {% endblock content %}
