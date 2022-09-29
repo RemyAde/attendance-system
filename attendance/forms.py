@@ -1,4 +1,4 @@
-from django.forms import ModelForm, Select, BooleanField, TextInput
+from django.forms import ModelForm, Select
 from .models import Attendance
 
 SUBJECT_CHOICES = [
