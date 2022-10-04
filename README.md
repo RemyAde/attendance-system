@@ -1,5 +1,5 @@
 # Student Attendance System
-This is web app that tracks individual student attendance for all the classes they have attended. Each student can sign into the platform, select a class and the summary of what they learnt. It has priviledges for staffs to view all student attendance.
+This is a web app that tracks individual student attendance for all the classes they have attended. Each student can sign into the platform, select a class and the summary of what they learnt. It has priviledges for staffs to view all student attendance.
 <br>
 <br>
 
