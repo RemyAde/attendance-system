@@ -3,7 +3,7 @@ This is web app that tracks individual student attendance for all the classes th
 <br>
 <br>
 
-<img src="ctas_gif.gif" width=600>
+<img src="assets/ctas.GIF" width=600>
 
 ## Technologies
 * Python
